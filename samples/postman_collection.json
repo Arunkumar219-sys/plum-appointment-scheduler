@@ -1,0 +1,96 @@
+{
+  "info": {
+    "name": "Plum SDE Assignment - Appointment Scheduler API",
+    "description": "Postman Collection to test Problem Statement 1: AI-Powered Appointment Scheduler Assistant",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "health"]
+        }
+      }
+    },
+    {
+      "name": "Schedule Appointment (Typed Text - Assignment Spec)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Book dentist next Friday at 3pm\",\n  \"reference_date\": \"2025-09-20\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/schedule/text",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "schedule", "text"]
+        }
+      }
+    },
+    {
+      "name": "Schedule Appointment (Ambiguous Guardrail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Book appointment next week\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/schedule/text",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "schedule", "text"]
+        }
+      }
+    },
+    {
+      "name": "Schedule Appointment (Image OCR Upload)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "samples/sample_appointment_note.png"
+            },
+            {
+              "key": "reference_date",
+              "value": "2025-09-20",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/schedule/image",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "schedule", "image"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}
